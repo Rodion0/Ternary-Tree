@@ -49,13 +49,21 @@ tree::tree()
     root = NULL; 
 }
 
-void tree::insert(int value)
+void tree::insert(int value) // Assumes each node visted is full 
 {
+    //Create new node
+    node * temp = new node();
+    //Set node data to value 
+    //Check to see if empty
+    if(root == NULL){
 
-    //Determine which child it(p) should go to (Insert Method in Tree Class) 
-        // p <= a
-        // a < p <= b
-        // b > p
+    }
+    //Loop until reaches bottom level  
+        //Determine which child it(p) should go to  
+            // p <= a
+            // a < p <= b
+            // b > p
+        //If no a/b in node then add, else add a child 
 }
 
 void tree::print() // In-order traversal
