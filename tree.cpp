@@ -12,6 +12,7 @@
 #include <string>
 using namespace std; 
 
+
 //Node Class
 class node
 {
@@ -51,7 +52,7 @@ tree::tree()
 
 void tree::insert(int value)
 {
-    
+
     //Determine which child it(p) should go to (Insert Method in Tree Class) 
         // p <= a
         // a < p <= b
