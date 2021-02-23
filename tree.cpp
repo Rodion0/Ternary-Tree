@@ -49,14 +49,15 @@ tree::tree()
     root = NULL; 
 }
 
-void tree::insert(int value) // Assumes each node visted is full 
+void tree::insert(int value)  
 {
     //Create new node
     node * temp = new node();
     //Set node data to value 
     //Check to see if empty
     if(root == NULL){
-
+        value = temp->small;
+        root = temp;
     }
     //Loop until reaches bottom level  
         //Determine which child it(p) should go to  
@@ -64,6 +65,7 @@ void tree::insert(int value) // Assumes each node visted is full
             // a < p <= b
             // b > p
         //If no a/b in node then add, else add a child 
+    
 }
 
 void tree::print() // In-order traversal
@@ -77,7 +79,7 @@ int main(int argc, char const *argv[])
     // New Tree
     tree * ternary = new tree(); 
     //Input numberOfInts from Parameters
-    int numberOfInts = stoi(argv[1]), int first = 0, int temp;
+    int numberOfInts = stoi(argv[1]), first = 0, temp;
     cin >> first; 
     ternary->insert(first); 
     for(int i = 0; i < numberOfInts; i ++){
