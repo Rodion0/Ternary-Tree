@@ -53,6 +53,7 @@ void tree::insert(int value)
 {
     //Create new node
     node * temp = new node();
+    node * traveler = root;
     //Set node data to value 
     //Check to see if empty
     if(root == NULL){
@@ -65,7 +66,26 @@ void tree::insert(int value)
             // a < p <= b
             // b > p
         //If no a/b in node then add, else add a child 
-    
+    while(traveler!= NULL){
+        if(value < traveler->small){
+            traveler= traveler->right;
+        }
+        else if(value > traveler->small && value < traveler->large){
+            traveler= traveler->middle;
+        }
+        else if(value > root->large){
+            traveler= traveler->left;
+        }
+    }
+    if(value < traveler->small){
+            traveler->right = temp;
+    }
+    else if(value > traveler->small && value < traveler->large){
+            traveler->middle= temp;
+    }
+    else if(value > root->large){
+            traveler->left = temp;
+    }
 }
 
 void tree::print() // In-order traversal
