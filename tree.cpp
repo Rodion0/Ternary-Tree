@@ -41,7 +41,8 @@ private:
 public:
     tree();
     void insert(int value); 
-    void print(); 
+    void print(node * current);
+    node * getRoot();  
 };
 
 tree::tree()
@@ -49,6 +50,9 @@ tree::tree()
     root = NULL; 
 }
 
+node * tree::getRoot(){
+    return root; 
+}
 void tree::insert(int value)  
 {
     //Create new node
@@ -88,10 +92,13 @@ void tree::insert(int value)
     }
 }
 
-void tree::print() // In-order traversal
+void tree::print(node * current) // In-order traversal
 {
-
+    cout << "( "; 
+    
 } 
+
+
 
 //Main
 int main(int argc, char const *argv[])
@@ -107,6 +114,6 @@ int main(int argc, char const *argv[])
         ternary->insert(temp);
     }
     //Print
-    ternary->print();  
+    ternary->print(ternary->getRoot());  
     return 0;
 }
