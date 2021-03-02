@@ -53,6 +53,7 @@ tree::tree()
 node * tree::getRoot(){
     return root; 
 }
+
 void tree::insert(int value)  
 {
     //Create new node
@@ -94,8 +95,49 @@ void tree::insert(int value)
 
 void tree::print(node * current) // In-order traversal
 {
-    cout << "( "; 
+    //If Tree is Empty
+    if(current == NULL){
+        cout << "There is no tree" <<endl; 
+        return; 
+    }
+    //Go Down Left Child
+    if(current->left != NULL){
+        cout << "("; 
+        print(current->left);
+        cout << ")"; 
+    }
     
+    //Output Child->smaller
+    
+    if(current->small != INT_MAX){
+        cout << current->small << " ";
+    }
+    else{
+        cout << current->small; 
+    }
+
+    //Go down Middle Child
+    if(current->middle != NULL){
+        cout << "("; 
+        print(current->middle);
+        cout << ")";
+    } 
+
+    //Output Child->bigger
+    if(current->large != INT_MIN){
+        cout << current->large << " "; 
+    }
+    else{
+        cout << current->large; 
+    }
+
+    //Go down Right Child 
+    if (current->right != NULL)
+    {
+        cout << "("; 
+        print(current->right);
+        cout << ")"; 
+    }
 } 
 
 
