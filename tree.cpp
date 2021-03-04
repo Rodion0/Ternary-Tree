@@ -40,7 +40,7 @@ private:
     node * root; 
 public:
     tree();
-    void insert(int value); 
+    node * insert(node * root, int value); 
     void print(node * current);
     node * getRoot();  
 };
@@ -54,43 +54,9 @@ node * tree::getRoot(){
     return root; 
 }
 
-void tree::insert(int value)  
-{
-    //Create new node
-    node * temp = new node();
-    node * traveler = root;
-    //Set node data to value 
-    //Check to see if empty
-    if(root == NULL){
-        value = temp->small;
-        root = temp;
-    }
-    //Loop until reaches bottom level  
-        //Determine which child it(p) should go to  
-            // p <= a
-            // a < p <= b
-            // b > p
-        //If no a/b in node then add, else add a child 
-    while(traveler!= NULL){
-        if(value < traveler->small){
-            traveler= traveler->right;
-        }
-        else if(value > traveler->small && value < traveler->large){
-            traveler= traveler->middle;
-        }
-        else if(value > root->large){
-            traveler= traveler->left;
-        }
-    }
-    if(value < traveler->small){
-            traveler->right = temp;
-    }
-    else if(value > traveler->small && value < traveler->large){
-            traveler->middle= temp;
-    }
-    else if(value > root->large){
-            traveler->left = temp;
-    }
+//Insert Method
+node * tree::insert(node * root, int value){
+    //If Null return node with 
 }
 
 void tree::print(node * current) // In-order traversal
@@ -159,3 +125,45 @@ int main(int argc, char const *argv[])
     ternary->print(ternary->getRoot());  
     return 0;
 }
+
+
+
+//Old insert
+/* void tree::insert(int value)  
+{
+    //Create new node
+    node * temp = new node();
+    node * traveler = root;
+    //Set node data to value 
+    //Check to see if empty
+    /* if (root == NULL)
+    {
+        value = temp->small;
+        root = temp;
+    } */
+    //Loop until reaches bottom level  
+        //Determine which child it(p) should go to  
+            // p <= a
+            // a < p <= b
+            // b > p
+        //If no a/b in node then add, else add a child 
+    /* while(traveler!= NULL){
+        if(value < traveler->small){
+            traveler= traveler->right;
+        }
+        else if(value > traveler->small && value < traveler->large){
+            traveler= traveler->middle;
+        }
+        else if(value > root->large){
+            traveler= traveler->left;
+        }
+    }
+    if(value < traveler->small){
+            traveler->right = temp;
+    }
+    else if(value > traveler->small && value < traveler->large){
+            traveler->middle= temp;
+    }
+    else if(value > root->large){
+            traveler->left = temp;
+    } */
