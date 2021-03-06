@@ -67,6 +67,7 @@ node * tree::insert(node * current, int value){
         return new node(value);
     }
     else{
+        // Check to see if node is filled
         if (current->large == INT_MIN)
         {
             if(value < current->small){
