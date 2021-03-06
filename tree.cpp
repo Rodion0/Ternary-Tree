@@ -24,12 +24,18 @@ private:
 public:
     friend class tree; 
     node();
+    node(int value);
 };
 
-node::node()
-{
+node::node(){
     small = INT_MAX; 
     large = INT_MIN; 
+    left = right = middle = NULL;
+}
+node::node(int value)
+{
+    small = value;
+    large = INT_MIN;
     left = right = middle = NULL; 
 }
  
@@ -40,7 +46,7 @@ private:
     node * root; 
 public:
     tree();
-    node * insert(node * root, int value); 
+    node * insert(node * current, int value); 
     void print(node * current);
     node * getRoot();  
 };
@@ -55,8 +61,48 @@ node * tree::getRoot(){
 }
 
 //Insert Method
-node * tree::insert(node * root, int value){
-    //If Null return node with 
+node * tree::insert(node * current, int value){
+    //Base Case 
+    if(root == NULL){
+        return new node(value);
+    }
+    else{
+        if (current->large == INT_MIN)
+        {
+            if(value < current->small){
+                current->large = current->small; 
+                current->small = value;  
+            }
+            else{
+                current->large = value;
+            }
+        }
+        else if(value < current->small){
+            if(current->left == NULL){
+                current->left = current;
+            }
+            else{
+                insert(current->left,value);
+            }
+        }
+        else if(value > current->small && value < current->large){
+            if(current-> middle== NULL){
+                current->middle = current;
+            }
+            else{
+                insert(current->middle,value);
+            }
+        }
+        else if(value > current->large){
+            if(current->right == NULL){
+                current->right = current;
+            }
+            else{
+                insert(current->right,value);
+            }
+        }
+        return current; 
+    }
 }
 
 void tree::print(node * current) // In-order traversal
@@ -116,54 +162,11 @@ int main(int argc, char const *argv[])
     //Input numberOfInts from Parameters
     int numberOfInts = stoi(argv[1]), first = 0, temp;
     cin >> first; 
-    ternary->insert(first); 
     for(int i = 0; i < numberOfInts; i ++){
         cin >> temp;        
-        ternary->insert(temp);
+        ternary->insert(ternary->getRoot(),temp);
     }
     //Print
     ternary->print(ternary->getRoot());  
     return 0;
 }
-
-
-
-//Old insert
-/* void tree::insert(int value)  
-{
-    //Create new node
-    node * temp = new node();
-    node * traveler = root;
-    //Set node data to value 
-    //Check to see if empty
-    /* if (root == NULL)
-    {
-        value = temp->small;
-        root = temp;
-    } */
-    //Loop until reaches bottom level  
-        //Determine which child it(p) should go to  
-            // p <= a
-            // a < p <= b
-            // b > p
-        //If no a/b in node then add, else add a child 
-    /* while(traveler!= NULL){
-        if(value < traveler->small){
-            traveler= traveler->right;
-        }
-        else if(value > traveler->small && value < traveler->large){
-            traveler= traveler->middle;
-        }
-        else if(value > root->large){
-            traveler= traveler->left;
-        }
-    }
-    if(value < traveler->small){
-            traveler->right = temp;
-    }
-    else if(value > traveler->small && value < traveler->large){
-            traveler->middle= temp;
-    }
-    else if(value > root->large){
-            traveler->left = temp;
-    } */
