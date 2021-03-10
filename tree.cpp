@@ -2,29 +2,23 @@
 //				CS315-001  Assignment 2 
 //--------------------------------------------------------------------
 // Author: Justin Hamilton
-// Date: 3/5/21
-// Description: Ternary Trees 
-// Assistance: We'll see 
+// Date: 3/9/21
+// Description: Add values to a ternary tree and then print them
+// Assistance: Tau Beta Pi tutoring 
 //--------------------------------------------------------------------
 
+//TODO: Make Swap Method instead of doing it inline 
 
-//Current Problems
-    //Insert Method 
-        //For some reason doesnt want to add to another cell or go down tree
-        // Update: It seems that the recursive method is the one thats the issue but idk whats wrong with my base case
-    //Print 
-        //I hope to Jesus, Mary and Joseph it works
-    //Main 
-        //Fuck it looks right 
-
-
-
-//Import limits, iostream 
 #include <iostream>
 #include <climits>
 using namespace std; 
 
-//Node Class
+//--------------------------------------------------------------------------------------
+//                                      insertFront()
+//--------------------------------------------------------------------------------------
+// Given: some int 
+// Inserts car with given int at front of train
+//--------------------------------------------------------------------------------------
 class node
 {
 private:
@@ -39,8 +33,12 @@ public:
     node(int value);
 };
 
+//--------------------------------------------------------------------------------------
+//                                      node()
+//--------------------------------------------------------------------------------------
+// Default Constructor
+//--------------------------------------------------------------------------------------
 node::node(){
-    cout << "I have made it to the node" << endl; 
     small = INT_MAX; 
     large = INT_MIN; 
     left = NULL;
@@ -48,6 +46,12 @@ node::node(){
     middle = NULL;
 }
 
+//--------------------------------------------------------------------------------------
+//                                      node()
+//--------------------------------------------------------------------------------------
+// Given: some int 
+// Create node with said int in data 
+//--------------------------------------------------------------------------------------
 node::node(int value)
 {
     small = value;
@@ -69,6 +73,11 @@ public:
     node * getRoot();  
 };
 
+//--------------------------------------------------------------------------------------
+//                                      node()
+//--------------------------------------------------------------------------------------
+// Default Constructor
+//--------------------------------------------------------------------------------------
 tree::tree()
 {
     root = NULL; 
