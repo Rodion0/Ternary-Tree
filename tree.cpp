@@ -11,6 +11,7 @@
 //Current Problems
     //Insert Method 
         //For some reason doesnt want to add to another cell or go down tree
+        // Update: It seems that the recursive method is the one thats the issue but idk whats wrong with my base case
     //Print 
         //I hope to Jesus, Mary and Joseph it works
     //Main 
@@ -80,11 +81,9 @@ node * tree::getRoot(){
 //Insert Method
 node * tree::insert(node * current, int value){
     //Base Case 
-    if(current == NULL){
-        cout << "I have returned" << endl;  
+    if(current == NULL){ 
         current = new node(value);
         if(root == NULL){
-            cout << "Root here" <<endl;
             root = new node(value);
             return root;
         }
@@ -95,45 +94,22 @@ node * tree::insert(node * current, int value){
         if (current->large == INT_MIN)
         {
             if(value < current->small){
-                cout << "Swapping" << endl; 
                 current->large = current->small; 
                 current->small = value;  
             }
-            else{
-                cout << "Doesn't need to be swapped" <<endl; 
+            else{ 
                 current->large = value;
             }
         }
         else if(value <= current->small){
-            if(current->left == NULL){
-                cout << "Small boi" << endl; 
-                current->left = current;
-            }
-            else{
-                cout << "Small Boi insert" <<endl; 
-                insert(current->left,value);
-            }
+            current->left = insert(current->left,value);
         }
-        else if(value > current->small && value < current->large){
-            if(current-> middle == NULL){
-                cout <<"Middle Boy" <<endl;
-                current->middle = current;
-            }
-            else{
-                cout << "Middle Boy INsert" << endl; 
-                insert(current->middle,value);
-            }
+        else if(value > current->small && value <= current->large){ 
+            current->middle = insert(current->middle,value);
+                
         }
         else if(value > current->large){
-            if(current->right == NULL){
-                cout << "Large Boy" << endl; 
-                current->right = current;
-            }
-            else{
-                cout << "Large  Boy Insert" <<endl; 
-                insert(current->right,value);
-                cout << "Hello Darkness my old friend" <<endl; 
-            }
+            current->right = insert(current->right,value);    
         }
         return current; 
     }
@@ -146,44 +122,38 @@ void tree::print(node * current) // In-order traversal
         cout << "There is no tree" <<endl; 
         return; 
     }
+
     //Go Down Left Child
     if(current->left != NULL){
         cout << "("; 
         print(current->left);
-        cout << ")"; 
+        cout << ") "; 
     }
     
     //Output Child->smaller
-    
     if(current->small != INT_MAX){
-        cout << current->small << " ";
-    }
-    else{
-        cout << current->small; 
+        cout << current->small;
     }
 
     //Go down Middle Child
     if(current->middle != NULL){
-        cout << "("; 
+        cout << " ("; 
         print(current->middle);
         cout << ")";
     } 
 
     //Output Child->bigger
     if(current->large != INT_MIN){
-        cout << current->large << " "; 
-    }
-    else{
-        cout << current->large; 
+        cout << " " << current->large; 
     }
 
     //Go down Right Child 
     if (current->right != NULL)
     {
-        cout << "("; 
+        cout << " ("; 
         print(current->right);
         cout << ")"; 
-    }
+    } 
 } 
 
 
@@ -201,5 +171,6 @@ int main(int argc, char const *argv[])
     }
     //Print
     ternary->print(ternary->getRoot());  
+    cout << endl;
     return 0;
 }
