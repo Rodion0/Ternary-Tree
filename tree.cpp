@@ -7,18 +7,12 @@
 // Assistance: Tau Beta Pi tutoring 
 //--------------------------------------------------------------------
 
-//TODO: Make Swap Method instead of doing it inline 
 
 #include <iostream>
 #include <climits>
 using namespace std; 
 
-//--------------------------------------------------------------------------------------
-//                                      insertFront()
-//--------------------------------------------------------------------------------------
-// Given: some int 
-// Inserts car with given int at front of train
-//--------------------------------------------------------------------------------------
+//Node Class
 class node
 {
 private:
@@ -35,8 +29,6 @@ public:
 
 //--------------------------------------------------------------------------------------
 //                                      node()
-//--------------------------------------------------------------------------------------
-// Default Constructor
 //--------------------------------------------------------------------------------------
 node::node(){
     small = INT_MAX; 
@@ -69,12 +61,13 @@ private:
 public:
     tree();
     node * insert(node * current, int value); 
+    void swap(node * current,int value);
     void print(node * current);
     node * getRoot();  
 };
 
 //--------------------------------------------------------------------------------------
-//                                      node()
+//                                      tree()
 //--------------------------------------------------------------------------------------
 // Default Constructor
 //--------------------------------------------------------------------------------------
@@ -83,11 +76,41 @@ tree::tree()
     root = NULL; 
 }
 
+//--------------------------------------------------------------------------------------
+//                                      getRoot()
+//--------------------------------------------------------------------------------------
+// Given: some int 
+// Create node with said int in data 
+//--------------------------------------------------------------------------------------
 node * tree::getRoot(){
     return root; 
 }
 
-//Insert Method
+//--------------------------------------------------------------------------------------
+//                                      swap()
+//--------------------------------------------------------------------------------------
+// Given: node, some int  
+// Swaps the values in the node if new value is smaller than previous value
+//--------------------------------------------------------------------------------------
+void tree::swap(node * current, int value){
+    if (current->large == INT_MIN){
+        if(value < current->small){
+            current->large = current->small; 
+            current->small = value;  
+        }
+        else{ 
+            current->large = value;
+        }
+    } 
+}
+
+//--------------------------------------------------------------------------------------
+//                                      insert()
+//--------------------------------------------------------------------------------------
+// Given: node, some int  
+// Returns: updated node
+// Insert node with given value into tree according to parameters
+//--------------------------------------------------------------------------------------
 node * tree::insert(node * current, int value){
     //Base Case 
     if(current == NULL){ 
@@ -99,17 +122,12 @@ node * tree::insert(node * current, int value){
         return current;  
     }
     else{
-        // Check to see if node is filled
-        if (current->large == INT_MIN)
-        {
-            if(value < current->small){
-                current->large = current->small; 
-                current->small = value;  
-            }
-            else{ 
-                current->large = value;
-            }
+        // If value is smaller than current-> small it swaps, else it just inserts at current->large
+        if(current->large == INT_MIN){
+            swap(current,value);
         }
+        
+        //Insert new node if current node is filled according to parameters
         else if(value <= current->small){
             current->left = insert(current->left,value);
         }
@@ -124,7 +142,13 @@ node * tree::insert(node * current, int value){
     }
 }
 
-void tree::print(node * current) // In-order traversal
+//--------------------------------------------------------------------------------------
+//                                      print()
+//--------------------------------------------------------------------------------------
+// Given: a node  
+// Prints the tree with parenthesis around children  
+//--------------------------------------------------------------------------------------
+void tree::print(node * current) 
 {
     //If Tree is Empty
     if(current == NULL){
@@ -167,13 +191,16 @@ void tree::print(node * current) // In-order traversal
 
 
 
-//Main
+//--------------------------------------------------------------------------------------
+//                                      main()
+//--------------------------------------------------------------------------------------
 int main(int argc, char const *argv[])
 {
     // New Tree
     tree * ternary = new tree();
     //Input numberOfInts from Parameters
     int numberOfInts = stoi(argv[1]), temp; 
+    //Insert Values into tree
     for(int i = 0; i < numberOfInts; i ++){
         cin >> temp;        
         ternary->insert(ternary->getRoot(),temp);
